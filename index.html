@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="index.css"> -->
+    <style>
+        * {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+.all_button {
+    text-align: center;
+    padding-top: 20px;
+}
+.all_button h1 {
+    padding-bottom: 10px;
+}
+#firstbutton {
+    padding: 13px 45px;
+    color: white;
+    background-color: #42b942;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+#secondbutton {
+    padding: 13px 45px;
+    color: white;
+    background-color: #b94287;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+#container {
+    display: flex;
+}
+.unique {
+    width: 230px;
+    height: 281px;
+    border: 2px solid red;
+    margin: auto;
+    text-align: center;
+    margin-top: 100px;
+    background-color: #464648;
+    border-radius: 10px;
+    box-shadow: 1px 1px 16px #837f7f;
+}
+.image {
+    padding-top: 34px;
+    margin: 3;
+    padding-right: 93px;
+}
+.backcircle {
+    padding-left: 28px;
+    width: 92px;
+    height: 97px;
+    border-radius: 50%;
+    background-color: rgb(54, 202, 225);
+    position: absolute;
+    margin-top: 31px;
+    margin-left: 84px;
+}
+.image img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+}
+.name {
+    display: flex;
+    border-bottom: 3px solid #8787d0;
+    justify-content: center;
+    width: 139px;
+    margin: auto;
+    padding-top: 123px;
+    font-size: 25px;
+    color: #b7b1b1;
+}
+.email {
+    padding-top: 10px;
+    color: #bdb5b5;
+}
+#email_one {
+    color: #928989;
+    font-size: 15px;
+    font-weight: 600; 
+    font-style: italic;
+}
+#email_one:hover {
+    color: blue;
+    border-bottom: 2px solid blue;
+}
+    </style>
+    <title>Test - 4 </title>
+</head>
+
+<body>
+
+    <div class="all_button">
+        <h1>Click One Time On Any One Button</h1>
+        <button id="firstbutton">Show Card</button>
+        <button id="secondbutton">Hide Card</button>
+    </div>
+
+    <div id="container"></div>
+
+
+    <script src="index.js"></script>
+    <script>
+        console.log("WelCome");
+
+const getbuttonstart = document.getElementById('firstbutton');
+getbuttonstart.addEventListener('click', getdata);
+
+
+function getdata() {
+    url = "https://reqres.in/api/users?page=2";
+    fetch(url).then((response) => {
+        return response.json();
+    }).then((data) => {
+        console.log(data);
+        for (let i = 0; i < data.data.length; i++) {
+            const getunique = document.getElementById("container");
+            getunique.innerHTML += `
+                        <div class="unique">
+                                <div class="one">
+                                        <div class="backcircle"></div>
+                                        <div class="image">
+                                            <img src="${data.data[i].avatar}" alt="Photo Image">
+                                        </div>      
+                                </div>
+                                <div class="name">
+                                    <p id="firstname">${data.data[i].first_name}</p>
+                                    <p id="lastname">${data.data[i].last_name}</p>
+                                </div>
+                                <div class="email">
+                                    <p>Email : <br><samp id="email_one"> ${data.data[i].email} </samp></p>
+                                </div>
+                        </div>
+                        `;
+        }
+    })
+}
+
+
+const getbuttonend = document.getElementById('secondbutton');
+getbuttonend.addEventListener('click', hidedata);
+
+function hidedata() {
+    console.log("Hide Data");
+    document.getElementById('container').style.display = "none";
+}
+    </script>
+</body>
+
+</html>
